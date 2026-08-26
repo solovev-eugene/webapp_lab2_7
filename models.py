@@ -1,3 +1,9 @@
+'''
+Модуль models.py - модели БД приложения Flask.
+
+Этот модуль содержит класс модели базы данных.
+'''
+
 from flask_sqlalchemy import SQLAlchemy
 
 from config import DISEASE_API_FIELDS

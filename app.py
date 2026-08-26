@@ -1,3 +1,11 @@
+'''
+Модуль app.py - основное приложение Flask.
+
+Этот модуль содержит:
+- Базовую конфигурацию
+- API приложения
+'''
+
 import os
 
 from dotenv import load_dotenv
@@ -12,6 +20,10 @@ load_dotenv()  # подгрузка переменных из .env
 
 app = Flask(__name__)
 
+# ---------------------- КОНФИГУРАЦИЯ ------------------------
+
+
+# Конфигурация Swagger
 swagger_template = {
     "swagger": "2.0",
     "info": {
@@ -35,6 +47,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+# --------------------------- API ----------------------------
 
 
 @app.get("/api/diseases")
@@ -394,8 +408,6 @@ def not_found(error):
 def bad_request(error):
     return jsonify({"error": "Bad request"}), 400
 
-
-debug = os.getenv("DEBUG", "false").lower() == "true"
 
 if __name__ == "__main__":
     app.run(

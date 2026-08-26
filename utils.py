@@ -1,12 +1,24 @@
+'''
+Модуль utils.py - функционал приложения Flask.
+
+Этот модуль содержит:
+- Базовые функции создания запросов к БД
+- Функции валидации даннных
+'''
+
 from sqlalchemy import select, func
 from config import OPERATIONS
 
+# --------------------- БАЗОВЫЕ ФУНКЦИИ ----------------------
+
 
 def build_query(model, fields: list[str]):
+    ''' Создание запроса к БД (SELECT)'''
     return select(*(getattr(model, field) for field in fields))
 
 
 def build_sorted_query(model, fields: list[str], sort_field: str, order: str = "asc"):
+    ''' Создание запроса к БД (SELECT, ORDER)'''
     query = build_query(model, fields)
 
     column = getattr(model, sort_field)
@@ -23,6 +35,7 @@ def build_sorted_query(model, fields: list[str], sort_field: str, order: str = "
 
 
 def build_func_query(model, field: str, operation: str):
+    ''' Создание запроса к БД (FUNC)'''
     if operation not in OPERATIONS:
         raise ValueError(f"Unknown operation: {operation}")
 
@@ -30,6 +43,8 @@ def build_func_query(model, field: str, operation: str):
     function = getattr(func, operation)
 
     return select(function(column))
+
+# ------------------------ ВАЛИДАЦИЯ -------------------------
 
 
 def validate_field(field: str | None, fields: list[str] | dict):

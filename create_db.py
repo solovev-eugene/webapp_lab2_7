@@ -1,3 +1,7 @@
+'''
+Модуль create_db.py - скрипт для заполнения базы данных 
+'''
+
 from random import randint, shuffle
 from app import app
 from models import Disease, db
@@ -37,12 +41,12 @@ with app.app_context():
 
         records.append(
             Disease(
-                country=country, # pyright: ignore[reportCallIssue]
-                region=region, # pyright: ignore[reportCallIssue]
-                population=population, # pyright: ignore[reportCallIssue]
-                cases=cases, # pyright: ignore[reportCallIssue]
-                deaths=deaths, # pyright: ignore[reportCallIssue]
-                recovered=recovered, # pyright: ignore[reportCallIssue]
+                country=country,
+                region=region,
+                population=population,
+                cases=cases,
+                deaths=deaths,
+                recovered=recovered,
             )
         )
 
